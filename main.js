@@ -22,10 +22,10 @@ new Vue({
       }
     },
     addItem: function(id) {
-      var task = this.newItems.trim();
+      var task = this.newItems[id].trim();
       if (task) {
         this.tasks[id].item.push(task);
-        this.newItems = "";
+        this.newItems[id] = "";
       }
     },
     removeTask: function(task) {
