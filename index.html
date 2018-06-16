@@ -1,53 +1,33 @@
 <link rel="stylesheet" type="text/css" href="./style.css">
 <div class="container" id="app">
-
     <section class="panel">
       <input v-model="newTask" @keyup.enter="addTask" placeholder="Add column" autofocus class="text-input">
       <button @click="clearList">Clear List</button>
-
     </section>
-
     <section class="list">
-
       <ul class="list-item">
-
         <li v-for="(task, id) in tasks">
-
           <input type="text" v-if="task === editingTask" v-auto-focus class="text-input" @keyup.enter="endEditing(task)" @blur="endEditing(task)" v-model="task.text">
-          <!-- <div> -->
-            <label v-if="task !== editingTask" @dblclick="editTask(task)">{{ task.text }}</label>
-            <button class="delete" @click="removeTask(task)">X</button>
-          <!-- </div> -->
-
+          <label v-if="task !== editingTask" @dblclick="editTask(task)">{{ task.text }}</label>
+          <button class="delete" @click="removeTask(task)">X</button>
+          <!--Sub items  -->
           <input v-model="newItems[id]" @keyup.enter="addItem(id)" placeholder="Add task" autofocus class="text-input sub-input">
-
-        <draggable v-model="task.item" :options="{group:'tasks'}">
+          <draggable v-model="task.item" :options="{group:'tasks'}">
             <div v-for="(item, index) in task.item" class="sub-items">
               <input type="text" v-if="item === editingItem" v-auto-focus class="text-input" @keyup.enter="endEditingItem(item, id, index)" @blur="endEditingItem(item, id, index)" v-model="item">
-
               <div class="sub-item" v-if="item !== editingItem" @dblclick="editItem(item)">
                 <span class="sub-item-text">{{item}}</span>
                 <span @click="removeItem(item, id)">X</span>
-             </div>
+              </div>
             </div>
-        </draggable>
-
+          </draggable>
         </li>
-
       </ul>
-
     </section>
-
 </div>
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
 <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
-
 <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.16.0/vuedraggable.min.js"></script>
-
 <script src="./main.js"></script>
